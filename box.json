@@ -1,0 +1,45 @@
+{
+    "name":"SendGrid",
+    "version":"1.0.0",
+    "author":"Dan Kraus <dskraus@gmail.com>",
+    "slug":"sendgrid",
+    "type":"modules",
+    "keywords":"email,sendgrid",
+    "homepage":"https://github.com/dankraus/sendgird/",
+    "documentation":"https://github.com/dankraus/sendgrid/readme.md",
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/dankraus/sendgrid.git"
+    },
+    "bugs":"https://github.com/dankraus/sendgrid/issues",
+    "shortDescription":"CFML port of SendGrid's email library",
+    "engines":[
+        {
+            "type":"railo",
+            "version":">4.1"
+        }
+    ],
+    "license":[
+        {
+            "type":"Apache2",
+            "url":"http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    ],
+    "contributors":[
+        "Dan Kraus <dskraus@gmail.com>"
+    ],
+    "ignore":[
+
+    ],
+    "testbox":{
+        "runner":[
+            "tests/run.cfm"
+        ]
+    },
+    "devdependencies":{
+        "testbox":"2.1.0"
+    },
+    "installPaths":{
+        "testbox":"testbox"
+    }
+}
