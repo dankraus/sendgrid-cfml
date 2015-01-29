@@ -17,7 +17,7 @@ component extends="testbox.system.BaseSpec"{
 /*********************************** BDD SUITES ***********************************/
 
 	function run(){
-		describe("SendGrid", function(){
+		describe("initlizations", function(){
 			it("initializes", function(){
 				var sendgrid = new models.SendGrid('user', 'pass');
 				expect(sendgrid).toBeInstanceOf('SendGrid');
@@ -25,8 +25,8 @@ component extends="testbox.system.BaseSpec"{
 			});
 			it("sets username and password in intialization", function(){
 				var sendgrid = new models.SendGrid('user', 'pass');
-				expect(sendgrid.username).toBe('user');
-				expect(sendgrid.password).toBe('pass');
+				expect(sendgrid.apiUsername).toBe('user');
+				expect(sendgrid.apiPassword).toBe('pass');
 			});
 			it("has default url", function(){
 				var sendgrid = new models.SendGrid('user', 'pass');
@@ -50,6 +50,68 @@ component extends="testbox.system.BaseSpec"{
 				expect(sendgrid.url).toBe('http://sendgrid.org:80/send')
 			});
 		});
+
+		describe("Sending email", function(){
+			it("gets a response from SendGrid when sending", function(){
+				var sendgrid = new models.SendGrid('user', 'pass');
+				var email = new models.SendGrid.Email();
+				var response = {};
+
+				// email.addTo('bar@foo.com');
+				// email.setFrom('foo@bar.com');
+				// email.setSubject('Foobar subject!');
+				// email.setText('This is the body!');
+
+				response = sendgrid.send(email);
+				expect(response).toBeTypeOf('struct');
+				expect(response.errors[1]).toBe("Bad username / password");
+			});
+
+			it( "gets a response from SendGrid with attachment", function(){
+				var sendgrid = new models.SendGrid('user', 'pass');
+				var email = new models.SendGrid.Email();
+				var response = {};
+
+				expect(response.errors[1]).toBe("Bad username / password");
+			});
+
+			it("gets a response from SendGrid with attachment missing extention", function(){
+				var sendgrid = new models.SendGrid('user', 'pass');
+				var email = new models.SendGrid.Email();
+				var response = {};
+
+				expect(response.errors[1]).toBe("Bad username / password");
+			});
+
+
+
+
+// public function testSendResponseWithAttachment() {
+//     $sendgrid = new SendGrid("foo", "bar");
+//     $email = new SendGrid\Email();
+//     $email->setFrom('p1@mailinator.com')->
+//             setSubject('foobar subject')->
+//             setText('foobar text')->
+//             addTo('p1@mailinator.com')->
+//             addAttachment('./gif.gif');
+//     $response = $sendgrid->send($email);
+//     $this->assertEquals("Bad username / password", $response->errors[0]);
+//   }
+//   public function testSendResponseWithAttachmentMissingExtension() {
+//     $sendgrid = new SendGrid("foo", "bar");
+//     $email = new SendGrid\Email();
+//     $email->setFrom('p1@mailinator.com')->
+//             setSubject('foobar subject')->
+//             setText('foobar text')->
+//             addTo('p1@mailinator.com')->
+//             addAttachment('./text');
+//     $response = $sendgrid->send($email);
+//     $this->assertEquals("Bad username / password", $response->errors[0]);
+//   }
+
+		});
+
+
 		// describe("finder methods", function(){
 		// 	it("finds a Film", function(){
 		// 		var films = new lib.Films();
