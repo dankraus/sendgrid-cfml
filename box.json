@@ -1,17 +1,17 @@
 {
-    "name":"SendGrid",
+    "name":"SendGrid-CFML",
     "version":"1.0.0",
     "author":"Dan Kraus <dskraus@gmail.com>",
-    "slug":"sendgrid",
+    "slug":"sendgrid-cfml",
     "type":"modules",
-    "keywords":"email,sendgrid",
+    "keywords":"email,sendgrid,cfml",
     "homepage":"https://github.com/dankraus/sendgird/",
-    "documentation":"https://github.com/dankraus/sendgrid/readme.md",
+    "documentation":"https://github.com/dankraus/sendgrid-cfml/readme.md",
     "repository":{
         "type":"git",
-        "url":"https://github.com/dankraus/sendgrid.git"
+        "url":"https://github.com/dankraus/sendgrid-cfml.git"
     },
-    "bugs":"https://github.com/dankraus/sendgrid/issues",
+    "bugs":"https://github.com/dankraus/sendgrid-cfml/issues",
     "shortDescription":"CFML port of SendGrid's email library",
     "engines":[
         {
@@ -21,8 +21,8 @@
     ],
     "license":[
         {
-            "type":"Apache2",
-            "url":"http://www.apache.org/licenses/LICENSE-2.0.html"
+            "type":"MIT",
+            "url":"https://github.com/dankraus/sendgrid-cfml/LICENSE.md"
         }
     ],
     "contributors":[
