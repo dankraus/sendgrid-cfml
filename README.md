@@ -4,7 +4,7 @@ through SendGrid's using CFML. It is heavily based on SendGrid's official librar
 
 SendGrid's official Web API documentation can be found [here](https://sendgrid.com/docs/API_Reference/Web_API/mail.html)
 
-##Usage
+##Usage Examples
 
 ###As a Coldbox Module
 
