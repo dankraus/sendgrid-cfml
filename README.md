@@ -4,9 +4,16 @@ through SendGrid's using CFML. It is heavily based on SendGrid's official librar
 
 SendGrid's official Web API documentation can be found [here](https://sendgrid.com/docs/API_Reference/Web_API/mail.html)
 
+##Usage
 
-setDate('Wed, 17 Dec 2014 19:21:16 +0000')
+*Coming soon...*
+
+---
+
+email.setDate('Wed, 17 Dec 2014 19:21:16 +0000');
 Must be in RFC-2822 Date format!
+
+---
 
 ##Contributing
 
