@@ -23,7 +23,7 @@ Must be in RFC-2822 Date format!
 
 * `SENDGRID_USERNAME = :yourSendGridUsername`
 * `SENDGRID_PASSWORD = :yourSendGridPassword`
-* `SENDGRID_TEST_TO = :aToEmailYouCanReadEmailAt=@domain.com`
+* `SENDGRID_TEST_TO = :aToEmailYouCanReadEmailAt@domain.com`
 * `SENDGRID_TEST_FROM = :someTest@domain.com`
 
 3. Start a server with `box server start`and browse to `/test/runner.cfm` to run test suite.
