@@ -32,27 +32,28 @@ component extends="testbox.system.BaseSpec"{
             expandPath("/test/resources/assets/logo.png"),
             expandPath("/test/resources/assets/secret.txt")
         ];
+        var uri = 'http://i.imgur.com/HnAga.png';
 
         describe("initlizations", function(){
             it("initializes", function(){
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword);
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword);
                 expect(sendgrid).toBeInstanceOf('SendGrid');
 
             });
             it("sets username and password in intialization", function(){
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword);
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword);
                 expect(sendgrid.apiUsername).toBe(sgusername);
                 expect(sendgrid.apiPassword).toBe(sgpassword);
             });
             it("has default url", function(){
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword);
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword);
                 expect(sendgrid.url).toBe('https://api.sendgrid.com/api/mail.send.json')
             });
             it("can set a custom url with url option", function(){
                 var options = {
                     url = "http://thisisaurlitotallymadeup.com/mail"
                 };
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword, options);
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword, options);
                 expect(sendgrid.url).toBe('http://thisisaurlitotallymadeup.com/mail')
             });
             it("can set a custom url with url part options", function(){
@@ -62,18 +63,18 @@ component extends="testbox.system.BaseSpec"{
                     "endpoint": "/send",
                     "port": "80"
                 };
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword, options);
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword, options);
                 expect(sendgrid.url).toBe('http://sendgrid.org:80/send')
             });
         });
 
         describe("Sending email", function(){
             it( "returns bad username/password when SendGrid creds are bogus", function(){
-                var sendgrid = new SendGridCFML.models.services.SendGrid('username', 'junk');
-                var email = new SendGridCFML.models.Email();
+                var sendgrid = new models.services.SendGrid('username', 'junk');
+                var email = new models.Email();
                 var response = {};
 
-                email.addTo('dskraus@gmail.com');
+                email.addTo(emailOpts.to);
                 email.setFrom('foo@bar.com');
                 email.setSubject('Foobar subject 2!');
                 email.setText('This is the body!');
@@ -84,11 +85,11 @@ component extends="testbox.system.BaseSpec"{
                 expect(response['errors'][1]).toBe("Bad username / password");
             });
             it("gets a success response from SendGrid when sending", function(){
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword);
-                var email = new SendGridCFML.models.Email();
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword);
+                var email = new models.Email();
                 var response = {};
 
-                email.addTo('dskraus@gmail.com');
+                email.addTo(emailOpts.to);
                 email.setFrom('foo@bar.com');
                 email.setSubject('Foobar subject 2!');
                 email.setText('This is the body!');
@@ -99,8 +100,8 @@ component extends="testbox.system.BaseSpec"{
                 expect(response['message']).toBe("success");
             });
             it( "gets a success response from SendGrid with attachment from path", function(){
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword);
-                var email = new SendGridCFML.models.Email(emailOpts);
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword);
+                var email = new models.Email(emailOpts);
                 var response = {};
 
                 email.addFile({filename: 'path-image.png', path: files[1]});
@@ -109,8 +110,9 @@ component extends="testbox.system.BaseSpec"{
                 response = sendgrid.send(email);
                 expect(response['message']).toBe("success");
             });
-            sit( "should clear temp files in ramdisk after sending", function(){
-                var email = new SendGridCFML.models.Email();
+            it( "should clear temp files in ramdisk after sending", function(){
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword);
+                var email = new models.Email(emailOpts);
                 var response = {};
                 var rampaths = ['', ''];
 
@@ -127,8 +129,8 @@ component extends="testbox.system.BaseSpec"{
                 expect(directoryExists(rampaths[2])).toBeFalse();
             });
             it( "gets a success response from SendGrid with attachment from url", function(){
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword);
-                var email = new SendGridCFML.models.Email(emailOpts);
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword);
+                var email = new models.Email(emailOpts);
                 var response = {};
                 var rampaths = ['', ''];
 
@@ -141,21 +143,17 @@ component extends="testbox.system.BaseSpec"{
                 response = sendgrid.send(email);
                 expect(response['message']).toBe("success");
 
-                rampaths1 = email.files[1].ramDiskFolder;
-                rampaths2 = email.files[2].ramDiskFolder;
-
-                expect(directoryExists(rampaths)).toBeFalse();
                 expect(directoryExists(rampaths[1])).toBeFalse();
                 expect(directoryExists(rampaths[2])).toBeFalse();
             });
             it( "gets a success response from SendGrid with inline content attachments (cid)", function(){
                 var response = {};
-                var sendgrid = new SendGridCFML.models.services.SendGrid(sgusername, sgpassword);
+                var sendgrid = new models.services.SendGrid(sgusername, sgpassword);
                 var opts = structCopy(emailOpts);
                 opts.text = '';
-                opts.html = '<p>This is an image <img src="cid:1234567"></img></p>'
-                opts.to = 'dkraus@topofmind.com'
-                var email = new SendGridCFML.models.Email(opts);
+                opts.html = '<p>This is an image <img src="cid:1234567"></img></p>';
+                opts.to = emailOpts.to;
+                var email = new models.Email(opts);
                 email.addFile({filename: 'path-image.png', filePath: files[1], cid: '1234567', contentType: 'image/png'});
 
                 response = sendgrid.send(email);

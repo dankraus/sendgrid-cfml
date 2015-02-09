@@ -16,11 +16,12 @@ Must be in RFC-2822 Date format!
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
+It'd be really, really terriffic if you wrote tests for your changes to.
+
 ##Issues
 
 Log issues with GitHub [Issues](https://github.com/dankraus/sendgrid-cfml/issues)
 
 ##Thanks
 I was going a bit crazy trying to convert unicode chars for the X-SMTPAPI headers.
-Big thanks to this Saman W Jayasekara @cfloveorg and this [blog post](http://cflove.org/2009/12/format-unicode-string-for-indesign-a-coldfusion-udf.cfm)!
-I rewrote it in cfscript for use in `SMTPAPI.cfc`.
+Big thanks to this Saman W Jayasekara @cfloveorg and this [blog post](http://cflove.org/2009/12/format-unicode-string-for-indesign-a-coldfusion-udf.cfm)! I rewrote it in cfscript for use in `SMTPAPI.cfc`.

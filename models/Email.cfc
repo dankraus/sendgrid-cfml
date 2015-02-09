@@ -1,6 +1,6 @@
 /**
 *
-* @file  SendGridCFML/models/Email.cfc
+* @file  models/Email.cfc
 * @author Dan Kraus
 *
 */
@@ -33,7 +33,7 @@ component output="false" displayname="Email"   {
         this.files = [];
         if(isDefined("config.files")){
             for(var file in config.files){
-                this.files.add(new FileHandler(file));
+                this.files.add(new Attachment(file));
             }
         }
 
@@ -164,7 +164,7 @@ component output="false" displayname="Email"   {
         var cid = structKeyExists(arguments.fileStruct, 'cid') ? arguments.fileStruct : {};
         var filename = structKeyExists(arguments.fileStruct, 'filename') ? arguments.fileStruct.filename : '';
 
-        var handler = new FileHandler(path=path,
+        var handler = new Attachment(path=path,
                                       url=uri,
                                       cid=cid,
                                       filename=filename);

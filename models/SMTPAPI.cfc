@@ -1,6 +1,6 @@
 /**
 *
-* @file  /SendGridCFML/models/SMTPAPI.cfc
+* @file  /models/SMTPAPI.cfc
 * @author Dan Kraus
 * @description X-SMTPAPI Email Header builder for SendGrid emails
 * escapeUnicode function reworked from:

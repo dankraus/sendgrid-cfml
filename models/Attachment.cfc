@@ -1,12 +1,12 @@
 /**
 *
-* @file  SendGridCFML/models/FileHandler.cfc
+* @file  models/Attachment.cfc
 * @author Dan Kraus
 * @description Handle files for SendGrid emails.
 *
 */
 
-component output="false" displayname="FileHandler"  {
+component output="false" displayname="Attachment"  {
 
     public function init(string path,
                          string url,
@@ -32,7 +32,7 @@ component output="false" displayname="FileHandler"  {
                 throw(type="exception", message="cid argument must be a struct containing keys for 'cid', and 'filePath', and 'contentType'");
             }
         } else {
-            throw(type="exception", message="Unrecognized FileHandler type. Must pass in 'url', 'path', or 'cid'.");
+            throw(type="exception", message="Unrecognized Attachment type. Must pass in 'url', 'path', or 'cid'.");
         }
 
         return this;

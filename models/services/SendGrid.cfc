@@ -1,6 +1,6 @@
 /**
 *
-* @file  SendGridCFML/models/services/SendGrid.cfc
+* @file  models/services/SendGrid.cfc
 * @author Dan Kraus
 *
 */
