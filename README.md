@@ -11,7 +11,7 @@ SendGrid's official Web API documentation can be found [here](https://sendgrid.c
 This library can be dropped in as a ColdBox module in your ColdBox app's `modules` folder. It assumed some default username and credentials but they're bogus and won't work so you'll need to get your own from SendGrid.
 
 
-####Configuration
+####Configuration Sample
 
 In Coldbox.cfc:
 
@@ -67,8 +67,8 @@ There are a few different ways you can then access the SendGrid service and send
             email.setHtml('<p>This is an HTML email</p>');
 
             //or init the email in one go:
-            email = getModel( 'email@sendgrid-cfml' ).init({ to: 'dskraus@gmail.com',
-                                                             from: 'someone@domain.com',
+            email = getModel( 'email@sendgrid-cfml' ).init({ to: 'art.vandelay@vandelayindustries.com',
+                                                             from: 'ckramer@kramerica.com',
                                                              subject: 'This is an email',
                                                              html: '<p>This is an HTML email</p>'});
 
@@ -82,6 +82,28 @@ There are a few different ways you can then access the SendGrid service and send
 
         }
     }
+
+###As a plain old object
+
+    sendGrid = new sendgrid-cfml.models.services.SendGrid.init("username", "password");
+    email = new sendgrid-cfml.models.Email.init({ to: 'art.vandelay@vandelayindustries.com',
+                                                  from: 'ckramer@kramerica.com',
+                                                  subject: 'This is an email',
+                                                  html: '<p>This is an HTML email</p>'});
+
+    sendGrid.send(email);
+
+
+##Documentation
+
+###SendGrid.cfc
+
+###Email.cfc
+
+###SMTPAPI.cfc
+
+###Attachment
+
 
 
 
