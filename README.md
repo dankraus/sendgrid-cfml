@@ -6,11 +6,93 @@ SendGrid's official Web API documentation can be found [here](https://sendgrid.c
 
 ##Usage
 
-*Coming soon...*
+###As a Coldbox Module
+
+This library can be dropped in as a ColdBox module in your ColdBox app's `modules` folder. It assumed some default username and credentials but they're bogus and won't work so you'll need to get your own from SendGrid.
+
+
+####Configuration
+
+In Coldbox.cfc:
+
+    function configure(){
+        ...
+        // custom settings
+        settings = {
+            SendGrid = {
+                apiUsername: "yourUsername",
+                apiPassword: "yourPassword",
+                options: {}
+            }
+        };
+        ...
+    }
+
+You can set environment specific credentials too from Coldbox.cfc
+
+    function configure(){
+        ...
+        environments = {
+            development = "localhost,127.0.0.1"
+        };
+        ...
+    }
+
+    /**
+    * Development environment
+    */
+    function development(){
+        settings = {
+            SendGrid = {
+                apiUsername: "usernameDev",
+                apiPassword: "passwordDev",
+                options: {}
+            }
+        };
+    }
+
+####Using it in your ColdBox app
+
+There are a few different ways you can then access the SendGrid service and send email.
+
+    component{
+        property name="SendGrid" inject="SendGrid@sendgrid-cfml";
+
+        function foo(){
+            //Set up email model with methods.
+            getModel( 'email@sendgrid-cfml' );
+            email.addTo('dskraus@gmail.com');
+            email.setFrom('me@domain.com');
+            email.setSubject('This is an email');
+            email.setHtml('<p>This is an HTML email</p>');
+
+            //or init the email in one go:
+            email = getModel( 'email@sendgrid-cfml' ).init({ to: 'dskraus@gmail.com',
+                                                             from: 'someone@domain.com',
+                                                             subject: 'This is an email',
+                                                             html: '<p>This is an HTML email</p>'});
+
+            //just use it if SendGrid injected with Wirebox via property
+            SendGrid.send(email);
+
+            //or if you need to use different credentials than the ones specified in your app
+            //you can grab a new instance and init accordingy
+            mailer = getModel( 'sendgrid@sendgrid-cfml' ).init("newUsername", "newPass");
+            mailer.send(email);
+
+        }
+    }
+
+
 
 ---
 
-email.setDate('Wed, 17 Dec 2014 19:21:16 +0000');
+*More Coming soon...*
+
+---
+
+...So I won't forget this with the rest of the docs:
+`email.setDate('Wed, 17 Dec 2014 19:21:16 +0000');`
 Must be in RFC-2822 Date format!
 
 ---
