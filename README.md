@@ -17,14 +17,16 @@ Must be in RFC-2822 Date format!
 
 ##Tests
 
+There are 85+ tests! Wowee!
+
 1. Use CommandBox and run `box install` against the directory where this repo has been cloned. CommandBox will download and install TestBox to run tests.
 
 2. Add the following environment variables for the tests to use to test outgoing email and connecting to SendGrid. It will send live emails and use credits against your account:
 
-* `SENDGRID_USERNAME = :yourSendGridUsername`
-* `SENDGRID_PASSWORD = :yourSendGridPassword`
-* `SENDGRID_TEST_TO = :aToEmailYouCanReadEmailAt@domain.com`
-* `SENDGRID_TEST_FROM = :someTest@domain.com`
+    * `SENDGRID_USERNAME = :yourSendGridUsername`
+    * `SENDGRID_PASSWORD = :yourSendGridPassword`
+    * `SENDGRID_TEST_TO = :aToEmailYouCanReadEmailAt@domain.com`
+    * `SENDGRID_TEST_FROM = :someTest@domain.com`
 
 3. Start a server with `box server start`and browse to `/test/runner.cfm` to run test suite.
 
