@@ -32,9 +32,7 @@
 
     ],
     "testbox":{
-        "runner":[
-            "tests/run.cfm"
-        ]
+        "runner":"http://127.0.0.1:54638/test/run.cfm"
     },
     "devdependencies":{
         "testbox":"2.1.0"
