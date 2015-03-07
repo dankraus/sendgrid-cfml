@@ -69,7 +69,7 @@ component extends="testbox.system.BaseSpec"{
         });
 
         describe("Sending email", function(){
-            it( "returns bad username/password when SendGrid creds are bogus", function(){
+            it( "throws error with message of bad username/password when SendGrid creds are bogus", function(){
                 var sendgrid = new models.services.SendGrid('username', 'junk');
                 var email = new models.Email();
                 var response = {};
@@ -79,10 +79,9 @@ component extends="testbox.system.BaseSpec"{
                 email.setSubject('Foobar subject 2!');
                 email.setText('This is the body!');
 
-                response = sendgrid.send(email);
-
-                expect(response).toBeTypeOf('struct');
-                expect(response['errors'][1]).toBe("Bad username / password");
+                expect(function(){
+                    response = sendgrid.send(email);
+                }).toThrow('AuthenticationFailure', 'Bad username / password submitted to SendGrid');
             });
             it("gets a success response from SendGrid when sending", function(){
                 var sendgrid = new models.services.SendGrid(sgusername, sgpassword);

@@ -56,9 +56,22 @@ component output="false" displayname="SendGrid"  {
                 http.addParam(type="formfield", name=key, value=val);
           }
         });
+
         httpResponse = http.send().getPrefix();
+        if(httpResponse.status_code != 200){
+            handleResponseErrors(httpResponse);
+        }
         response = httpResponse.filecontent;
 
         return deserializeJSON(response);
+    }
+
+
+    private function handleResponseErrors(required struct response){
+        if(arguments.response.statuscode == '400 Bad Request'){
+            throw(type="AuthenticationFailure", message="Bad username / password submitted to SendGrid");
+        } else {
+            throw(type="exception", message=response.filecontent);
+        }
     }
 }
